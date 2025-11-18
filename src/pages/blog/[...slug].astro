@@ -1,0 +1,41 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Navigation from '../../components/Navigation.astro';
+
+export async function getStaticPaths() {
+  const blogEntries = await getCollection('posts');
+  return blogEntries.map(entry => ({
+    params: { slug: entry.slug }, props: { entry },
+  }));
+}
+
+const { entry } = Astro.props;
+const { Content } = await entry.render();
+---
+
+<BaseLayout pageTitle={entry.data.title}>
+  <Navigation />
+  
+  <main class="post-container">
+    <article>
+      <h1 class="post-title">{entry.data.title}</h1>
+      <div class="post-meta">
+        <time>{entry.data.pubDate.toDateString()}</time>
+      </div>
+      <hr />
+      
+      <div class="markdown-content">
+        <Content />
+      </div>
+    </article>
+  </main>
+</BaseLayout>
+
+<style>
+  .post-container {
+    max-width: 720px;
+    margin: 2rem auto;
+    padding: 0 1rem;
+  }
+</style>

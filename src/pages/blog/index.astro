@@ -1,0 +1,61 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Navigation from '../../components/Navigation.astro';
+import BlogCard from '../../components/BlogCard.astro';
+
+const pageTitle = "Blog - Songlin's Space";
+
+const allPosts = await getCollection('posts');
+const sortedPosts = allPosts.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+---
+
+<BaseLayout pageTitle={pageTitle}>
+  <Navigation />
+
+  <main>
+    <section class="blog-posts-container">
+      {sortedPosts.map((post) => (
+        <BlogCard 
+          title={post.data.title}
+          description={post.data.description}
+          pubDate={post.data.pubDate}
+          url={`/blog/${post.slug}`} 
+          tags={post.data.tags}
+        />
+      ))}
+    </section>
+  </main>
+</BaseLayout>
+
+<style>
+  /* 页面特定的样式 */
+  .hero-section {
+    position: relative;
+    text-align: center;
+    color: white;
+    margin-bottom: 2rem;
+  }
+
+  .hero-img {
+    width: 100%;
+    height: 300px;
+    object-fit: cover;
+  }
+
+  .blog-intro {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: rgba(0, 0, 0, 0.5);
+    padding: 1rem 2rem;
+    border-radius: 8px;
+  }
+
+  .blog-posts-container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 0 1rem 3rem 1rem;
+  }
+</style>

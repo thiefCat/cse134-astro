@@ -1,0 +1,46 @@
+---
+// src/components/Navigation.astro
+---
+<header>
+  <nav>
+    <a href="/" class="nav-brand"><b>Songlin Zhao</b></a>
+    <ul>
+      <li><a href="/" class="nav-clickable nav-active">About Me</a></li>
+      <li><a href="/blog" class="nav-clickable">Blogs</a></li>
+      <li>
+        <button id="theme-toggle" type="button" aria-label="Toggle Dark Mode">🌙</button>
+      </li>
+    </ul>
+  </nav>
+</header>
+
+<script>
+
+  const toggleBtn = document.getElementById('theme-toggle');
+  const body = document.body;
+
+  const savedTheme = localStorage.getItem('theme');
+  if (savedTheme === 'dark') {
+    body.classList.add('dark-mode');
+    if(toggleBtn) toggleBtn.textContent = '☀️';
+  }
+
+  if(toggleBtn) {
+    toggleBtn.style.display = 'block';
+    
+    toggleBtn.addEventListener('click', () => {
+      const updateTheme = () => {
+        body.classList.toggle('dark-mode');
+        const isDarkMode = body.classList.contains('dark-mode');
+        toggleBtn.textContent = isDarkMode ? '☀️' : '🌙';
+        localStorage.setItem('theme', isDarkMode ? 'dark' : 'light');
+      };
+
+      if (document.startViewTransition) {
+        document.startViewTransition(updateTheme);
+      } else {
+        updateTheme();
+      }
+    });
+  }
+</script>

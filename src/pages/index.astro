@@ -1,16 +1,56 @@
 ---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Navigation from '../components/Navigation.astro';
 
+const pageTitle = "About Me";
 ---
 
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
-	</head>
-	<body>
-		<h1>Astro</h1>
-	</body>
-</html>
+<BaseLayout pageTitle={pageTitle}>
+  
+  <Navigation />
+
+  <main class="home-container">
+    <div class="home-left">
+      <img 
+        src="/images/avatar-150.jpg" 
+        srcset="/images/avatar-150.jpeg 1x, /images/avatar-300.jpg 2x" 
+        alt="An avatar of Songlin Zhao" 
+        width="150" 
+        height="150"
+        style="border-radius: 50%; object-fit: cover;"
+      >
+      <h3>Songlin Zhao</h3>
+      <div>
+        <p>
+          Master's student at UCSD majoring in Computer Science
+        </p>
+      </div>
+      <i>La Jolla, CA, USA</i>
+      <a href="mailto:zhaosonglin2024@gmail.com">Email</a>
+      <a href="https://www.linkedin.com/in/songlin-zhao/">LinkedIn</a>
+      <a href="https://github.com/thiefCat">Github</a>
+    </div>
+  
+    <div class="home-right">
+      <section>
+        <h2>About Me</h2>
+        <p>
+          Hi! My name is <strong>Songlin Zhao</strong>. I am a graduate student at the <b>University of California, San Diego</b>. My major is Computer
+          Science.
+          I love learning various Computer Science Knowledge. Previously, I was a <em>Backend Development Intern at
+          Alibaba Cloud</em>,
+          where I gained hands-on experience with large-scale systems. I'm always eager to dive in, experiment, and
+          bring ideas to life!
+        </p>
+      </section>
+  
+      <section>
+        <h2>Contact</h2>
+        <p>
+          Feel free to reach out to me via <a href="mailto:zhaosonglin2024@gmail.com">email</a> or connect with me on <a href="https://www.linkedin.com/in/songlin-zhao/">LinkedIn</a> and <a href="https://github.com/thiefCatd">Github</a>.
+        </p>
+      </section>
+    </div>
+  </main>
+
+</BaseLayout>
